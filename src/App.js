@@ -1,11 +1,11 @@
 /* eslint-disable */
-import React from 'react';
+import React from "react";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from './Pages/Main';
-import Create from './Pages/Create';
-import Draw from './Pages/Draw';
-import Find from './Pages/Find/Find';
+import Main from "./Pages/Main";
+import Create from "./Pages/Create/Create";
+import Draw from "./Pages/Draw/Draw";
+import Find from "./Pages/Find/Find";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/create" element={<Create />} />
           <Route path="/draw" element={<Draw />} />
-          <Route path="/find" element={<Find />} />
+          <Route path="/Find" element={<Find />} />
         </Routes>
       </BrowserRouter>
     </>
