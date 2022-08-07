@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 
-const Modal = (text, img) => {
+
+const DivContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid red;
+  background-color: red;
+
+`
+
+
+const Modal = (props) => {
+
+  const [close, setClose] = useState(true);
+  
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setClose(false)
+    }, 2000);
+    // 버그 방지 
+    return () => {
+      clearTimeout(timer);
+    };
+  })
+  
     return(
-        <div className='modal'>
-          <h4>{text}</h4>
-          <p>날짜</p>
-          <p>상세내용</p>
-        </div>
+      <>
+        {close === true
+        ? 
+        <DivContainer>
+          <h4>{props.title}</h4>
+        </DivContainer>
+        : null
+        }
+      </>
       )
 }
 
