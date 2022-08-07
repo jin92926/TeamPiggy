@@ -1,10 +1,17 @@
-const HappyList = function ({ item }) {
+//onClickHappy, deleteList 추가.
+const HappyList = function ({ item, onClickHappy, deleteList }) {
   return (
     <div>
-      <li className="list">
+      <li className="list" onClick={onClickHappy}>
         <div className="list__content">
-          <span className="list__content">{item.제목}</span>
+          {/*class명을 list__title로 변경 */}
+          <span className="list__title">{item.제목}</span>
           <span className="list__createdAt">{item.날짜}</span>
+          <button onClick={ () => {
+              deleteList(item.id); //id이겠지?
+          }}>
+              Delete List
+          </button>
         </div>
       </li>
     </div>

@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React from "react";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./Pages/Main";
 import Create from "./Pages/Create/Create";
