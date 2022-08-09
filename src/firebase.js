@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getStorage, ref } from "firebase/storage";
+//firebase 9버전에 맞게 import
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,9 +17,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 export default app;
-export const authService = getAuth();
-export const dbService = getFirestore();
-export const storageService = getStorage();
+export const authService = firebase.auth();
+export const firebaseInstance = firebase;
+export const dbService = firebase.firestore;
+export const storageService = firebase.storage;
