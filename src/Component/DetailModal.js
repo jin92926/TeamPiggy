@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   collection,
   onSnapshot,
-  addDoc,
   query,
   orderBy,
 } from "firebase/firestore";
@@ -32,7 +31,7 @@ const DivContainer = styled.div`
 
 `;
 
-const RandomHappy_title = styled.div`
+const RandomHappyTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,7 +41,7 @@ const RandomHappy_title = styled.div`
   border-radius: 10px;
 `;
 
-const RandomHappy_listTwo = styled.div`
+const RandomHappyListTwo = styled.div`
   display: flex;
   justify-content: space-between;
   width: 299px;
@@ -59,7 +58,7 @@ const RandomHappy_listTwo = styled.div`
 
 `;
 
-const RandomHappy_img = styled.img`
+const RandomHappyImg = styled.img`
   width: 299px;
   height: 137px;
   border-radius: 10px;
@@ -67,7 +66,7 @@ const RandomHappy_img = styled.img`
 `;
 
 
-const RandomHappy_content = styled.div`
+const RandomHappyContent = styled.div`
 
   display: flex;
   justify-content: center;
@@ -98,9 +97,10 @@ color: white;
 `;
 
 
-function DetailModal({ isOpen }) {
+function DetailModal({ isOpen , deleteList}) {
   const [savedHappy, setSavedHappy] = useState([]);
-  const [deleteHappy, setDeleteHappy] = useState(false);
+
+  console.log(isOpen)
 
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
@@ -113,43 +113,22 @@ function DetailModal({ isOpen }) {
     });
   }, []);
 
-  // console.log(savedHappy[0].id)
-
   const randomHappy = savedHappy[Math.floor(Math.random() * savedHappy.length)];
-
-
-
-  useEffect(() => {
-    const good = collection("happy");
-    const happy = collection("happy").doc().날씨;
-    console.log(good)
-    
-    
-    good.doc(happy).delete();
-
-  }, [deleteHappy])
-
-
-  const deleteHappyButton = () => {
-    setDeleteHappy(!deleteHappy)
-
-  }
-
   return (
     <>
       {isOpen ? (
         <Background>
           <DivContainer>
-            <RandomHappy_title>{randomHappy.제목}</RandomHappy_title>
-            <RandomHappy_listTwo>
-              <span className="list__createdAt">{randomHappy.날짜}</span>
+            <RandomHappyTitle>{randomHappy.제목}</RandomHappyTitle>
+            <RandomHappyListTwo>
+              <span className="list__createdAt">{randomHappy.날짜.toDate().toLocaleString().slice(0,11)}</span>
               <span className="list__content">{randomHappy.날씨}</span>
-            </RandomHappy_listTwo>
-            {randomHappy.url && <RandomHappy_img src={randomHappy.url} />}
-            <RandomHappy_content>{randomHappy.내용}</RandomHappy_content>
+            </RandomHappyListTwo>
+            {randomHappy.url && <RandomHappyImg src={randomHappy.url} />}
+            <RandomHappyContent>{randomHappy.내용}</RandomHappyContent>
             <ButtonDiv>
-              <img src="/trash.png"/>
-              <ButtonCss onClick={deleteHappyButton}>삭제하기</ButtonCss>
+              <img src="/trash.png" alt="삭제하기"/>
+              <ButtonCss onClick={()=> {deleteList(randomHappy.id)}}>삭제하기</ButtonCss>
             </ButtonDiv>
           </DivContainer>
         </Background>

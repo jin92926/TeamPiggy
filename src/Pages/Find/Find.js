@@ -5,7 +5,6 @@ import {
   doc,
   collection,
   onSnapshot,
-  addDoc,
   query,
   orderBy,
   deleteDoc
@@ -14,7 +13,7 @@ import { dbService } from "../../firebase";
 import HappyList from "./HappyList";
 import styled from "styled-components";
 import DetailModal from "../../Component/DetailModal";
-import ShowList from "./ShowList";
+
 
 const Background = styled.div`
   width: 100vw;
@@ -75,7 +74,7 @@ const Find = () => {
         ))}
         </div>
         <div className="div3">
-          <ShowList isOpen={isOpen}/>
+          <DetailModal isOpen={isOpen} deleteList={deleteList}/>
         </div>
         <Nav />
       </DivContainer>

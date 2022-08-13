@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import {
+  doc,
+  deleteDoc
+} from "firebase/firestore";
+import { dbService } from "../../firebase";
 import Nav from '../../Component/Nav';
 import Card from './Card';
 import styled from 'styled-components';
@@ -75,6 +80,10 @@ const ClickModal = (props) => {
       setClose(copyclose)
     }
   }
+  const deleteList = async (id) => {
+    const listDoc = doc(dbService, "happy", id);
+    await deleteDoc(listDoc);
+  }
 
   return(
     <>
@@ -84,7 +93,7 @@ const ClickModal = (props) => {
         ? 
           <DivContainer>
             <div className='div2'>
-              <img src={process.env.PUBLIC_URL + props.src} onClick={clickEvent}/>
+              <img src={process.env.PUBLIC_URL + props.src} onClick={clickEvent} alt="title"/>
               <p>{props.title}</p>
             </div>
           </DivContainer>
@@ -92,7 +101,7 @@ const ClickModal = (props) => {
           <DivContainer1>
             <div className='div3'>
               <Card openModalHandler={openModalHandler} isOpen={isOpen} />
-              <DetailModal isOpen={isOpen} />
+              <DetailModal isOpen={isOpen} deleteList={deleteList}/>
             </div>
             <Nav/>
           </DivContainer1>
