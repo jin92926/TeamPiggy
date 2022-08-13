@@ -76,16 +76,18 @@ function Form() {
         <form>
           {attachment && <img src={attachment} width="50px" height="50px" />}
           <div>
-            <input type="file" accept="image/*" onChange={onFileChange} />
+            <input type="file" accept="image/*" onChange={onFileChange}/>
             <button onClick={onClearAttachment}>Clear</button>
           </div>
-          <span>{new Date().toLocaleDateString().slice(0, -1)}</span>
-          <input
-            value={weather}
-            type="text"
-            placeholder="날씨는 어때요?"
-            onChange={onChangeWeather}
-          />
+          <div>
+            <span>{new Date().toLocaleDateString().slice(0, -1)}</span>
+            <input
+              value={weather}
+              type="text"
+              placeholder="날씨는 어때요?"
+              onChange={onChangeWeather}
+            />
+          </div>
           <input
             value={title}
             onChange={onChangeTitle}
@@ -97,7 +99,7 @@ function Form() {
             onChange={onChangeText}
             placeholder="행복을 입력해주세요"
           />
-          <input type="submit" value="submit" />
+          <input type="submit" value="행복조각 모으기" />
         </form>
       </div>
     </>

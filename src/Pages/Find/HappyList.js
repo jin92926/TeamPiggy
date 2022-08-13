@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //onClickHappy, deleteList 추가.
 const HappyList = function ({ item, onClickHappy, deleteList }) {
   return (
@@ -15,6 +16,28 @@ const HappyList = function ({ item, onClickHappy, deleteList }) {
         </div>
       </li>
     </div>
+=======
+
+
+const HappyList = function ({ item, openModalHandler,isOpen }) {
+
+
+  return (
+    <>
+    { isOpen
+      ? null
+      :
+      <div>
+        <li className="list">
+          <div className="list__content" onClick={openModalHandler}>
+            <span className="list__content">{item.제목}</span>
+            <span className="list__createdAt">{item.날짜.toDate().toLocaleDateString()}</span>
+          </div>
+        </li>
+      </div>
+    }
+    </>
+>>>>>>> origin/master
   );
 };
 

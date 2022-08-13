@@ -3,7 +3,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+<<<<<<< HEAD
+import { getStorage, ref } from "firebase/storage";
+=======
+
+>>>>>>> origin/master
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -17,10 +21,16 @@ const firebaseConfig = {
   messagingSenderId: process.env.EACT_APP_MESSAGE_ID,
   appId: process.env.REACT_APP_ID,
 };
+// console.log(firebaseConfig)
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 export default app;
 export const authService = getAuth();
 export const dbService = getFirestore();
 export const storageService = getStorage();
+export { firestore };
