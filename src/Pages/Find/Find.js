@@ -46,15 +46,9 @@ const DivContainer = styled.div`
 
 const Find = () => {
   const [savedHappy, setSavedHappy] = useState([]);
-
-<<<<<<< HEAD
-  const onClickHappy = (event) => {
-    console.log(event.target);
-=======
   const [isOpen, setIsOpen] = useState(false);
   const openModalHandler = (event) => {
     setIsOpen(!isOpen);
->>>>>>> origin/master
   };
   const deleteList = async (id) => {
     const listDoc = doc(dbService, "happy", id);
@@ -77,12 +71,6 @@ const Find = () => {
       <DivContainer>
         <div className="div2">
         {savedHappy.map((item) => (
-<<<<<<< HEAD
-          <HappyList key={item.id} item={item} onClickHappy={onClickHappy} deleteList={deleteList}/>
-        ))}
-      </div>
-    </>
-=======
           <HappyList key={item.id} item={item} isOpen={isOpen} openModalHandler={openModalHandler}/> //컴포넌트라 안읽힘
         ))}
         </div>
@@ -92,7 +80,6 @@ const Find = () => {
         <Nav />
       </DivContainer>
     </Background>
->>>>>>> origin/master
   );
 };
 

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-function Main({userObj}) {
-  return (
-
-      <div>{userObj.displayName}님의 행복한 기억을 모아뒀어요</div>
-
-=======
 import { useEffect, useState } from 'react';
 import Nav from '../Component/Nav'
 import Modal from '../Component/Modal';
@@ -55,7 +46,6 @@ const DivContainer1234 = styled.div`
 function Main(props) {
   const [showmodal, setShowmodal] = useState(true);
 
-
   useEffect(() => {
     let timer = setTimeout(() => {
       setShowmodal(false)
@@ -76,14 +66,13 @@ function Main(props) {
           <DivContainer123>
             <DivContainer1234>
               <img src={props.src[1]}/>
-              <p>서희님의 행복한 기억을 모아뒀어요</p>
+              <p>{props.userObj.displayName}님의 행복한 기억을 모아뒀어요</p>
             </DivContainer1234>
             <Nav/>
           </DivContainer123>
         </Background1>
       }
     </>
->>>>>>> origin/master
   )
 }
 

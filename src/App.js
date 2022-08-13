@@ -1,9 +1,5 @@
 /* eslint-disable */
-<<<<<<< HEAD
 import React, {useEffect, useState} from "react";
-=======
-import React, {useEffect, useState} from "react";
->>>>>>> origin/master
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { authService } from "./firebase";
 import Main from "./Pages/Main";
@@ -19,11 +15,10 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-`
+`;
 
 function App() {
-<<<<<<< HEAD
-  const[init, setInit] = useState(false);
+  const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userObj, setUserObj] = useState(null);
   const [title, setTitle] = useState([['행복', '저금통'] ,'행복한 기억이 필요하세요?', '저금통을 눌러주세요']);
@@ -62,10 +57,6 @@ function App() {
             </>
             : <Route path="/" element={<Login />} />
           }
-          
-=======
-  
->>>>>>> origin/master
         </Routes>
         :
         "init.. "

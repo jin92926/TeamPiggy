@@ -19,23 +19,13 @@ function Draw(props) {
 
   return (
     <>
-<<<<<<< HEAD
-      {
-        showmodal === true
-        ?
-        <Modal title={props.title[1]} src={props.src[1]} vanish={props.vanish}/>
-        :
-        <ClickModal title={props.title[2]} src={props.src[1]} vanish={!props.vanish}/>
-      }
-=======
     {
       showmodal === true
       ?
-      <Modal title={props.title[1]} src={props.src[1]} vanish={props.vanish}/>
+      <Modal title={props.title[1]} src={props.src[1]} vanish={props.vanish} />
       :
-      <ClickModal title={props.title[2]} src={props.src[1]} vanish={!props.vanish}/>
+      <ClickModal title={props.title[2]} src={props.src[1]} vanish={!props.vanish} />
     }
->>>>>>> origin/master
     </>
   );
 }

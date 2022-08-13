@@ -6,7 +6,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { dbService, firestore } from "../firebase";
+import { dbService } from "../firebase"
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -120,8 +120,8 @@ function DetailModal({ isOpen }) {
 
 
   useEffect(() => {
-    const good = firestore.collection("happy");
-    const happy = firestore.collection("happy").doc().날씨;
+    const good = collection("happy");
+    const happy = collection("happy").doc().날씨;
     console.log(good)
     
     

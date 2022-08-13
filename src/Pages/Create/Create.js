@@ -28,18 +28,12 @@ const DivContainer = styled.div`
 
 function Create() {
   return (
-<<<<<<< HEAD
-    <>
-      <Form />
-    </>
-=======
     <Background>
       <DivContainer>
         <Form />
         <Nav />
       </DivContainer>
     </Background>
->>>>>>> origin/master
   );
 }
 
