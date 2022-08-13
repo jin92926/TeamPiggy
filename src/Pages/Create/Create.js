@@ -5,7 +5,6 @@ function Create() {
   return (
     <>
       <Form />
-      <Nav />
     </>
   );
 }

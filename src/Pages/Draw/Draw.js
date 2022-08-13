@@ -17,7 +17,6 @@ function Draw() {
         <Card openModalHandler={openModalHandler} isOpen={isOpen} />
         <HappyModal isOpen={isOpen} />
       </div>
-      <Nav />
     </>
   );
 }

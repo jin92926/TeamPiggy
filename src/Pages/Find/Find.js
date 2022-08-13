@@ -44,7 +44,6 @@ const Find = () => {
           <HappyList key={item.id} item={item} onClickHappy={onClickHappy} deleteList={deleteList}/>
         ))}
       </div>
-      <Nav />
     </>
   );
 };

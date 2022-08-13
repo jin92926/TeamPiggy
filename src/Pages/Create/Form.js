@@ -33,7 +33,7 @@ function Form() {
     // 사진 없이 submit 하면 오류나오는 상태 !
     const submitHappy = {
       제목: title,
-      날짜: new Date().toLocaleDateString().slice(0, -1),
+      날짜: new Date(),
       날씨: weather,
       내용: text,
       url: attachmentUrl,

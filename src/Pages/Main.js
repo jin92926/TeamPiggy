@@ -1,12 +1,10 @@
 import React from 'react';
-import Nav from '../Component/Nav'
 
-function Main() {
+function Main({userObj}) {
   return (
-    <>
-        <div>서희님의 행복한 기억을 모아뒀어요</div>
-        <Nav/>
-    </>
+
+      <div>{userObj.displayName}님의 행복한 기억을 모아뒀어요</div>
+
   )
 }
 
