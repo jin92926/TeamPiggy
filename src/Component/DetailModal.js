@@ -1,6 +1,3 @@
-//뽑기로 나올 창
-//
-//
 import React, { useState, useEffect } from "react";
 import {
   collection,
@@ -9,7 +6,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { dbService, firestore } from "../../firebase";
+import { dbService, firestore } from "../firebase";
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -101,7 +98,7 @@ color: white;
 `;
 
 
-function HappyModal({ isOpen }) {
+function DetailModal({ isOpen }) {
   const [savedHappy, setSavedHappy] = useState([]);
   const [deleteHappy, setDeleteHappy] = useState(false);
 
@@ -124,10 +121,11 @@ function HappyModal({ isOpen }) {
 
   useEffect(() => {
     const good = firestore.collection("happy");
-    const happy = firestore.collection("happy").doc();
-    // console.log(happy)
+    const happy = firestore.collection("happy").doc().날씨;
+    console.log(good)
     
-    // good.doc(happy).delete();
+    
+    good.doc(happy).delete();
 
   }, [deleteHappy])
 
@@ -144,7 +142,7 @@ function HappyModal({ isOpen }) {
           <DivContainer>
             <RandomHappy_title>{randomHappy.제목}</RandomHappy_title>
             <RandomHappy_listTwo>
-              <span className="list__createdAt">{randomHappy.날짜.toDate().toLocaleDateString()}</span>
+              <span className="list__createdAt">{randomHappy.날짜}</span>
               <span className="list__content">{randomHappy.날씨}</span>
             </RandomHappy_listTwo>
             {randomHappy.url && <RandomHappy_img src={randomHappy.url} />}
@@ -160,4 +158,4 @@ function HappyModal({ isOpen }) {
   );
 }
 
-export default HappyModal;
+export default DetailModal;
