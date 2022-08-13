@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { dbService } from "../firebase";
 import styled from "styled-components";
@@ -85,6 +86,8 @@ const ButtonCss = styled.button`
 function DetailModal({ isOpen, deleteList }) {
   const [savedHappy, setSavedHappy] = useState([]);
 
+  console.log(isOpen);
+
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -113,7 +116,7 @@ function DetailModal({ isOpen, deleteList }) {
             {randomHappy.url && <RandomHappyImg src={randomHappy.url} />}
             <RandomHappyContent>{randomHappy.내용}</RandomHappyContent>
             <ButtonDiv>
-              <img src="/trash.png" />
+              <img src="/trash.png" alt="삭제하기" />
               <ButtonCss
                 onClick={() => {
                   deleteList(randomHappy.id);

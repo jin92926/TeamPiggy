@@ -42,12 +42,10 @@ const DivContainer = styled.div`
 
 const Find = () => {
   const [savedHappy, setSavedHappy] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const openModalHandler = (event) => {
     setIsOpen(!isOpen);
   };
-
   const deleteList = async (id) => {
     const listDoc = doc(dbService, "happy", id);
     await deleteDoc(listDoc);
