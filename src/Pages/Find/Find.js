@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import Nav from "../../Component/Nav";
 
 import {
+  doc,
   collection,
   onSnapshot,
-  addDoc,
   query,
   orderBy,
+  deleteDoc
 } from "firebase/firestore";
 import { dbService } from "../../firebase";
 import HappyList from "./HappyList";
 import styled from "styled-components";
 import DetailModal from "../../Component/DetailModal";
-import ShowList from "./ShowList";
+
 
 const Background = styled.div`
   width: 100vw;
@@ -50,6 +51,11 @@ const Find = () => {
     setIsOpen(!isOpen);
   };
 
+  const deleteList = async (id) => {
+    const listDoc = doc(dbService, "happy", id);
+    await deleteDoc(listDoc);
+  }
+
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -70,7 +76,7 @@ const Find = () => {
         ))}
         </div>
         <div className="div3">
-          <ShowList isOpen={isOpen}/>
+          <DetailModal isOpen={isOpen} deleteList={deleteList}/>
         </div>
         <Nav />
       </DivContainer>
