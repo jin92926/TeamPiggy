@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import firebase from "./firebase";
-console.log(firebase);
+// console.log(firebase);
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 

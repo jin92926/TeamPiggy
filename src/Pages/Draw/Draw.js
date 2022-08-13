@@ -1,23 +1,31 @@
 // 랜덤 뽑기 메인 컴포넌트
 // 행복한 기억이 필요하세요?
 // 여기서 누르면 모달(HappyModal) 창이 나와야함
-import { useState } from "react";
-import HappyModal from "./HappyModal";
-import Nav from "../../Component/Nav";
-import Card from "./Card";
-function Draw() {
-  const [isOpen, setIsOpen] = useState(false);
-  const openModalHandler = (event) => {
-    setIsOpen(!isOpen);
-  };
+import { useEffect, useState } from "react";
+import Modal from '../../Component/Modal';
+import ClickModal from "./ClickModal";
+
+function Draw(props) {
+  const [showmodal, setShowmodal] = useState(true);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShowmodal(false)
+    },2000)
+    return () => {
+      clearTimeout(timer);
+    }
+  },[])
 
   return (
     <>
-      <div>
-        <Card openModalHandler={openModalHandler} isOpen={isOpen} />
-        <HappyModal isOpen={isOpen} />
-      </div>
-      <Nav />
+    {
+      showmodal === true
+      ?
+      <Modal title={props.title[1]} src={props.src[1]} vanish={props.vanish}/>
+      :
+      <ClickModal title={props.title[2]} src={props.src[1]} vanish={!props.vanish}/>
+    }
     </>
   );
 }

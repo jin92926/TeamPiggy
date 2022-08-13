@@ -1,6 +1,3 @@
-//뽑기로 나올 창
-//
-//
 import React, { useState, useEffect } from "react";
 import {
   collection,
@@ -9,8 +6,9 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
-import { dbService, firestore } from "../../firebase";
+import { dbService } from "../../firebase";
 import styled from "styled-components";
+
 
 const Background = styled.div`
   width: 359px;
@@ -101,10 +99,8 @@ color: white;
 `;
 
 
-function HappyModal({ isOpen }) {
+function ShowList({ isOpen }) {
   const [savedHappy, setSavedHappy] = useState([]);
-  const [deleteHappy, setDeleteHappy] = useState(false);
-
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
     onSnapshot(q, (snapshot) => {
@@ -116,26 +112,7 @@ function HappyModal({ isOpen }) {
     });
   }, []);
 
-  // console.log(savedHappy[0].id)
-
   const randomHappy = savedHappy[Math.floor(Math.random() * savedHappy.length)];
-
-
-
-  useEffect(() => {
-    const good = firestore.collection("happy");
-    const happy = firestore.collection("happy").doc();
-    // console.log(happy)
-    
-    // good.doc(happy).delete();
-
-  }, [deleteHappy])
-
-
-  const deleteHappyButton = () => {
-    setDeleteHappy(!deleteHappy)
-
-  }
 
   return (
     <>
@@ -144,14 +121,14 @@ function HappyModal({ isOpen }) {
           <DivContainer>
             <RandomHappy_title>{randomHappy.제목}</RandomHappy_title>
             <RandomHappy_listTwo>
-              <span className="list__createdAt">{randomHappy.날짜.toDate().toLocaleDateString()}</span>
+              <span className="list__createdAt">{randomHappy.날짜}</span>
               <span className="list__content">{randomHappy.날씨}</span>
             </RandomHappy_listTwo>
             {randomHappy.url && <RandomHappy_img src={randomHappy.url} />}
             <RandomHappy_content>{randomHappy.내용}</RandomHappy_content>
             <ButtonDiv>
               <img src="/trash.png"/>
-              <ButtonCss onClick={deleteHappyButton}>삭제하기</ButtonCss>
+              <ButtonCss>삭제하기</ButtonCss>
             </ButtonDiv>
           </DivContainer>
         </Background>
@@ -160,4 +137,4 @@ function HappyModal({ isOpen }) {
   );
 }
 
-export default HappyModal;
+export default ShowList;
