@@ -7,7 +7,8 @@ import {
   GithubAuthProvider,
   signInWithPopup,
 } from '@firebase/auth'
-
+import styled from "styled-components";
+import { useNavigate } from "react-router";
 import LoginForm from './LoginForm';
 import LoginBtn from './LoginBtn';
 
@@ -16,6 +17,7 @@ const Login = () => {
     const [password, setPassword] = useState(""); //pw
     const [username, setUsername] = useState(""); //username
     const [newAccount, setNewAccount] = useState(false);	// 새로운 유저인지 확인
+    let navigate = useNavigate();
     
     const onChange = (event) => {
       const {target: {name, value}} = event;
@@ -51,28 +53,51 @@ const Login = () => {
         let provider;
         if (name === "google") {
           provider = new GoogleAuthProvider()
+          navigate('/main')
         }
         else if(name === "github"){
           provider = new GithubAuthProvider()
+          navigate('/main')
         }
         const data = await signInWithPopup(authService, provider);
         console.log(data);
       }
-  
+
     return (
-        <div>
-          <LoginForm
-            onSubmit={onSubmit} 
-            onChange={onChange}
-            email={email}
-            password={password}
-            username={username}
-            newAccount={newAccount}
-            >
-          </LoginForm>
-          <LoginBtn OnSocialClick={OnSocialClick} newAccount={newAccount} toggleAccount={toggleAccount}></LoginBtn>
-        </div>
+      <Background>
+        <DivContainer>
+        <LoginForm
+          onSubmit={onSubmit} 
+          onChange={onChange}
+          email={email}
+          password={password}
+          username={username}
+          newAccount={newAccount}
+          toggleAccount={toggleAccount}
+        >
+        </LoginForm>
+        <LoginBtn OnSocialClick={OnSocialClick} newAccount={newAccount} toggleAccount={toggleAccount}></LoginBtn>
+        </DivContainer>
+      </Background>
   )
 }
+const Background = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #FFFF4D; */
+`;
+
+const DivContainer = styled.div`
+  width: 414px;
+  height: 736px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
+  border-radius: 10px;
+`;
 
 export default Login;

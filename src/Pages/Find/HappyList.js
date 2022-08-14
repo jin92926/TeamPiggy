@@ -1,7 +1,6 @@
 //onClickHappy, deleteList 추가.
 const HappyList = function ({ item, onClickHappy, openModalHandler,isOpen, deleteList }) {
 
-
   return (
     <>
     { isOpen

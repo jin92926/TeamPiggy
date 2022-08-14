@@ -7,8 +7,7 @@ import Create from "./Pages/Create/Create";
 import Draw from "./Pages/Draw/Draw";
 import Find from "./Pages/Find/Find";
 import Login from "./Pages/Login/Login";
-import Nav from "./Component/Nav";
-import Header from "./Component/Header";
+import Setting from "./Pages/Setting/Setting";
 
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
@@ -24,7 +23,6 @@ function App() {
   const [title, setTitle] = useState([['행복', '저금통'] ,'행복한 기억이 필요하세요?', '저금통을 눌러주세요']);
   const [src, setSrc] = useState(['/folder.png', '/mainpig.png']);
   const [vanish, setVanish] = useState(true);
-
 
   console.log(authService.currentUser);
 
@@ -42,7 +40,6 @@ function App() {
     <>
       <BrowserRouter>
       <GlobalStyle />
-      {isLogin && <Header userObj={userObj}/>}
       {
         init ? 
         <Routes>
@@ -50,10 +47,11 @@ function App() {
             isLogin
             ?
             <>
-            <Route path="/" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
+            <Route path="/main" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
             <Route path="/create" element={<Create />} />
             <Route path="/draw" element={<Draw title={title} src={src} vanish={vanish} />} />
             <Route path="/Find" element={<Find />} />
+            <Route path="/Setting" element={<Setting userObj={userObj}/>} />
             </>
             : <Route path="/" element={<Login />} />
           }
@@ -61,7 +59,6 @@ function App() {
         :
         "init.. "
         }
-        {isLogin && <Nav />}
       </BrowserRouter>
     </>
   );
