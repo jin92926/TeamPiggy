@@ -17,18 +17,14 @@ const Background = styled.div`
   justify-content: center;
   align-items: center; 
   border-radius: 10px;
-
 `;
 
-
 const DivContainer = styled.div`
-
   height: 420px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
 `;
 
 const RandomHappyTitle = styled.div`
@@ -55,19 +51,15 @@ const RandomHappyListTwo = styled.div`
     align-items: center;
     justify-content: center;
   }
-
 `;
 
 const RandomHappyImg = styled.img`
   width: 299px;
   height: 137px;
   border-radius: 10px;
-
 `;
 
-
 const RandomHappyContent = styled.div`
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,13 +79,13 @@ const ButtonDiv = styled.div`
   img {
     width: 13.33px;
   }
-
 `;
+
 const ButtonCss = styled.button`
-background-color:transparent;
-border: 0;
-outline: 0;
-color: white;
+  background-color:transparent;
+  border: 0;
+  outline: 0;
+  color: white;
 `;
 
 

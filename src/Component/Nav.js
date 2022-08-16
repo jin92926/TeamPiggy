@@ -56,6 +56,11 @@ function Nav() {
         <Button name="찾기" />
       </ButtonDiv>
 
+      <ButtonDiv onClick={() => navigate('/Setting')}>
+        <img src="/setting.png"></img>
+        <Button name="설정" />
+      </ButtonDiv>
+
     </Navbar>
   );
 }
