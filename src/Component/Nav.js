@@ -1,16 +1,15 @@
 /* eslint-disable */
 import React from "react";
-import { Link , useNavigate} from "react-router-dom";
-import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Navbar = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: #CBCBEB;
+  background: #cbcbeb;
   width: 100%;
   height: 76px;
-
 `;
 
 const ButtonDiv = styled.div`
@@ -24,13 +23,12 @@ const ButtonDiv = styled.div`
 `;
 
 const ButtonCss = styled.button`
-background-color:transparent;
-border: 0;
-outline: 0;
-color: #FFFFFF;
-font-size: 7px;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  color: #ffffff;
+  font-size: 7px;
 `;
-
 
 const Button = (props) => {
   return <ButtonCss onClick={() => {}}>{props.name}</ButtonCss>;
@@ -41,21 +39,20 @@ function Nav() {
 
   return (
     <Navbar>
-      <ButtonDiv onClick={() => navigate('/create')}>
+      <ButtonDiv onClick={() => navigate("/create")}>
         <img src="/mainpig.png"></img>
         <Button name="모으기" />
       </ButtonDiv>
 
-      <ButtonDiv onClick={() => navigate('/draw')}>
+      <ButtonDiv onClick={() => navigate("/draw")}>
         <img src="/folder.png"></img>
         <Button name="뽑기" />
       </ButtonDiv>
 
-      <ButtonDiv onClick={() => navigate('/Find')}>
+      <ButtonDiv onClick={() => navigate("/Find")}>
         <img src="/find.png"></img>
         <Button name="찾기" />
       </ButtonDiv>
-
     </Navbar>
   );
 }

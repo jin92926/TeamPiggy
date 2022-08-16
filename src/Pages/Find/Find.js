@@ -12,7 +12,9 @@ import {
 import { dbService } from "../../firebase";
 import HappyList from "./HappyList";
 import styled from "styled-components";
-import DetailModal from "../../Component/DetailModal";
+// import DetailModal from "../../Component/DetailModal";
+import NoHappy from "../../Component/NoHappy";
+import SelectedModal from "./SelectedModal";
 
 const Background = styled.div`
   width: 100vw;
@@ -32,20 +34,50 @@ const DivContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background: linear-gradient(180.45deg, #f6e7fb 1.69%, #3b6bb7 99.25%);
+`;
 
-  > .div3 {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-  }
+const ListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+`;
+
+const ListBackground = styled.div`
+  width: 359px;
+  height: 580px;
+  background: #ffffff4d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin: 25px;
+`;
+
+const ItemSection = styled.section`
+  width: 310px;
+  height: 520px;
+  overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const Find = () => {
   const [savedHappy, setSavedHappy] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const openModalHandler = (event) => {
+  const [selectedHappy, setSelectedHappy] = useState({});
+
+  const openModalHandler = () => {
     setIsOpen(!isOpen);
   };
+
+  const selecteHandler = (id) => {
+    const selectedArr = savedHappy.filter((item) => {
+      return item.id === id;
+    });
+    setSelectedHappy(...selectedArr);
+  };
+
   const deleteList = async (id) => {
     const listDoc = doc(dbService, "happy", id);
     await deleteDoc(listDoc);
@@ -65,19 +97,30 @@ const Find = () => {
   return (
     <Background>
       <DivContainer>
-        <div className="div2">
-          {savedHappy.map((item) => (
-            <HappyList
-              key={item.id}
-              item={item}
-              isOpen={isOpen}
-              openModalHandler={openModalHandler}
-            /> //컴포넌트라 안읽힘
-          ))}
-        </div>
-        <div className="div3">
-          <DetailModal isOpen={isOpen} deleteList={deleteList} />
-        </div>
+        {!isOpen && savedHappy.length > 0 && (
+          <ListContainer>
+            <ListBackground>
+              <ItemSection>
+                {savedHappy.map((item) => (
+                  <div key={item.id} onClick={() => selecteHandler(item.id)}>
+                    <HappyList
+                      item={item}
+                      openModalHandler={openModalHandler}
+                    ></HappyList>
+                  </div>
+                ))}
+              </ItemSection>
+            </ListBackground>
+          </ListContainer>
+        )}
+        {!isOpen && savedHappy.length < 1 && <NoHappy />}
+        <SelectedModal
+          savedHappy={savedHappy}
+          selectedHappy={selectedHappy}
+          isOpen={isOpen}
+          deleteList={deleteList}
+        />
+        {/* <DetailModal isOpen={isOpen} deleteList={deleteList} /> */}
         <Nav />
       </DivContainer>
     </Background>
