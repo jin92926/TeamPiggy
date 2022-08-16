@@ -1,13 +1,10 @@
-import { useState } from 'react';
-import {
-  doc,
-  deleteDoc
-} from "firebase/firestore";
+import { useState } from "react";
+import { doc, deleteDoc } from "firebase/firestore";
 import { dbService } from "../../firebase";
-import Nav from '../../Component/Nav';
-import Card from './Card';
-import styled from 'styled-components';
-import DetailModal from '../../Component/DetailModal';
+import Nav from "../../Component/Nav";
+import Card from "./Card";
+import styled from "styled-components";
+import DetailModal from "../../Component/DetailModal";
 
 const Background = styled.div`
   width: 100vw;
@@ -16,14 +13,13 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color : #FCF6F5;
+  color: #fcf6f5;
 `;
 
 const DivContainer = styled.div`
-
   width: 414px;
   height: 736px;
-  background: linear-gradient(17.56deg, #F6E7FB 0%, #3B6BB7 100%);
+  background: linear-gradient(17.56deg, #f6e7fb 0%, #3b6bb7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,9 +34,9 @@ const DivContainer = styled.div`
     animation: blink-effect 2s linear 1;
 
     > img {
-    width: 219.65px;
-    height: 198.59px;
-    padding-bottom: 20px;
+      width: 219.65px;
+      height: 198.59px;
+      padding-bottom: 20px;
     }
 
     @keyframes blink-effect {
@@ -55,60 +51,59 @@ const DivContainer = styled.div`
 `;
 
 const DivContainer1 = styled(DivContainer)`
- justify-content: space-between;
+  justify-content: space-between;
 
   > .div3 {
     flex-grow: 1;
     display: flex;
     align-items: center;
   }
-
 `;
 
 const ClickModal = (props) => {
-
   const [close, setClose] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const openModalHandler = (event) => {
     setIsOpen(!isOpen);
   };
 
-
   const clickEvent = () => {
-    if(!props.vanish) {
+    if (!props.vanish) {
       let copyclose = false;
-      setClose(copyclose)
+      setClose(copyclose);
     }
-  }
+  };
   const deleteList = async (id) => {
     const listDoc = doc(dbService, "happy", id);
     await deleteDoc(listDoc);
-  }
+  };
 
-  return(
+  return (
     <>
       <Background>
-        {
-        close === true
-        ? 
+        {close === true ? (
           <DivContainer>
-            <div className='div2'>
-              <img src={process.env.PUBLIC_URL + props.src} onClick={clickEvent} alt="title"/>
+            <div className="div2">
+              <img
+                src={process.env.PUBLIC_URL + props.src}
+                onClick={clickEvent}
+                alt="title"
+              />
               <p>{props.title}</p>
             </div>
           </DivContainer>
-        : 
+        ) : (
           <DivContainer1>
-            <div className='div3'>
+            <div className="div3">
               <Card openModalHandler={openModalHandler} isOpen={isOpen} />
-              <DetailModal isOpen={isOpen} deleteList={deleteList}/>
+              <DetailModal isOpen={isOpen} deleteList={deleteList} />
             </div>
-            <Nav/>
+            <Nav />
           </DivContainer1>
-        }
+        )}
       </Background>
     </>
-    )
-}
+  );
+};
 
 export default ClickModal;

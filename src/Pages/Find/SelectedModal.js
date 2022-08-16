@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { dbService } from "../firebase";
 import styled from "styled-components";
-import NoHappy from "./NoHappy";
+import NoHappy from "../../Component/NoHappy";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.section`
   height: 650px;
@@ -85,31 +82,15 @@ const ButtonDiv = styled.div`
     width: 13.33px;
   }
 `;
-
 const ButtonCss = styled.button`
-  background-color:transparent;
+  background-color: transparent;
   border: 0;
   outline: 0;
   color: white;
 `;
 
-function DetailModal({ isOpen, deleteList }) {
-  const [savedHappy, setSavedHappy] = useState([]);
-
-  console.log(isOpen);
-
-  useEffect(() => {
-    const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
-    onSnapshot(q, (snapshot) => {
-      const happyArr = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setSavedHappy(happyArr);
-    });
-  }, []);
-
-  const randomHappy = savedHappy[Math.floor(Math.random() * savedHappy.length)];
+function SelectedModal({ isOpen, deleteList, selectedHappy, savedHappy }) {
+  let navigate = useNavigate();
 
   return (
     <>
@@ -118,24 +99,27 @@ function DetailModal({ isOpen, deleteList }) {
           {savedHappy.length > 0 ? (
             <Background>
               <DivContainer>
-                <RandomHappyTitle>{randomHappy.제목}</RandomHappyTitle>
+                <RandomHappyTitle>{selectedHappy.제목}</RandomHappyTitle>
                 <RandomHappyListTwo>
                   <span>
-                    {randomHappy.날짜.toDate().toLocaleString().slice(0, 11)}
+                    {selectedHappy.날짜.toDate().toLocaleString().slice(0, 11)}
                   </span>
-                  <span>{randomHappy.날씨}</span>
+                  <span>{selectedHappy.날씨}</span>
                 </RandomHappyListTwo>
 
-                {randomHappy.url && <RandomHappyImg src={randomHappy.url} />}
-                <RandomHappyContent isImg={randomHappy.url}>
-                  {randomHappy.내용}
+                {selectedHappy.url && (
+                  <RandomHappyImg src={selectedHappy.url} />
+                )}
+                <RandomHappyContent isImg={selectedHappy.url}>
+                  {selectedHappy.내용}
                 </RandomHappyContent>
 
                 <ButtonDiv>
                   <img src="/trash.png" alt="삭제하기" />
                   <ButtonCss
                     onClick={() => {
-                      deleteList(randomHappy.id);
+                      deleteList(selectedHappy.id);
+                      navigate("/");
                     }}
                   >
                     삭제하기
@@ -152,4 +136,4 @@ function DetailModal({ isOpen, deleteList }) {
   );
 }
 
-export default DetailModal;
+export default SelectedModal;
