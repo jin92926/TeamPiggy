@@ -16,6 +16,7 @@ const Login = () => {
     const [email, setEmail] = useState(""); //id
     const [password, setPassword] = useState(""); //pw
     const [username, setUsername] = useState(""); //username
+    const [error, setError] = useState("")
     const [newAccount, setNewAccount] = useState(false);	// 새로운 유저인지 확인
     let navigate = useNavigate();
     
@@ -35,13 +36,17 @@ const Login = () => {
       try {
         let data;
         if (newAccount) {
-          data = await createUserWithEmailAndPassword(authService, email, password, username); // 계정 만들기
+          data = await createUserWithEmailAndPassword(authService, email, password); // 계정 만들기
+          alert('새 계정 만들기 성공')
+          navigate('/main')
         } else {
           data = await signInWithEmailAndPassword(authService, email, password); // 로그인
+          alert('로그인 성공')
+          navigate('/main')
         }
         console.log(data);
       } catch(error) {
-        console.log(error)
+        alert(error.message);
       }
     }
     

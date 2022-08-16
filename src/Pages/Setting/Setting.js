@@ -9,10 +9,15 @@ const Setting = ({userObj}) => {
         <>
         <Background>
         <DivContainer>
-            <div>
-                {userObj.email}
+            <div className="profile">
+                <img src="/mainpig.png" />
+                <div>
+                  <span>{userObj.email}</span>
+                  <span>
+                  <Logout />
+                  </span>
+                </div>
             </div>
-            <Logout />
             <Nav />
         </DivContainer>
         </Background>
@@ -39,11 +44,30 @@ const DivContainer = styled.div`
   justify-content: space-between;
   background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
 
-
-  > .div3 {
-    flex-grow: 1;
+  .profile {
     display: flex;
-    align-items: center;
+    color: black;
+    margin-top: 30px;
+    padding: 10px;
+    width: 85%;
+    border-bottom: 1px solid #3B6BB7;
+  }
+  .profile > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 5px;
+  }
+  .profile > img{
+    width: 40px;
+    height: 40px;
+    background-color: #3B6BB7;
+    border-radius: 50px;
+    padding: 5px;
+  }
+  .profile > span{
+    line-height: 40px;
   }
 
 `;

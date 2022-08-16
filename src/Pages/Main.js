@@ -42,7 +42,6 @@ const DivContainer1234 = styled.div`
   }
 `;
 
-
 function Main(props) {
   const [showmodal, setShowmodal] = useState(true);
 
