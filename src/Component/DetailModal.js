@@ -85,8 +85,9 @@ const ButtonDiv = styled.div`
     width: 13.33px;
   }
 `;
+
 const ButtonCss = styled.button`
-  background-color: transparent;
+  background-color:transparent;
   border: 0;
   outline: 0;
   color: white;

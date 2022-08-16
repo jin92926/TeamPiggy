@@ -7,7 +7,8 @@ import Create from "./Pages/Create/Create";
 import Draw from "./Pages/Draw/Draw";
 import Find from "./Pages/Find/Find";
 import Login from "./Pages/Login/Login";
-import Header from "./Component/Header";
+import Setting from "./Pages/Setting/Setting";
+
 
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
@@ -39,37 +40,26 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <GlobalStyle />
-        {isLogin && <Header userObj={userObj} />}
-        {init ? (
-          <Routes>
-            {isLogin ? (
-              <>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      userObj={userObj}
-                      title={title}
-                      src={src}
-                      vanish={vanish}
-                    />
-                  }
-                />
-                <Route path="/create" element={<Create />} />
-                <Route
-                  path="/draw"
-                  element={<Draw title={title} src={src} vanish={vanish} />}
-                />
-                <Route path="/Find" element={<Find />} />
-              </>
-            ) : (
-              <Route path="/" element={<Login />} />
-            )}
-          </Routes>
-        ) : (
-          "init.. "
-        )}
+      <GlobalStyle />
+      {
+        init ? 
+        <Routes>
+          {
+            isLogin
+            ?
+            <>
+            <Route path="/main" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/draw" element={<Draw title={title} src={src} vanish={vanish} />} />
+            <Route path="/Find" element={<Find />} />
+            <Route path="/Setting" element={<Setting userObj={userObj}/>} />
+            </>
+            : <Route path="/" element={<Login />} />
+          }
+        </Routes>
+        :
+        "init.. "
+        }
       </BrowserRouter>
     </>
   );

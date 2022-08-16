@@ -1,6 +1,7 @@
 //onClickHappy, deleteList 추가.
 import styled from "styled-components";
 
+
 const HappyListContainer = styled.div`
   background-color: #fff;
   margin: 20px;
@@ -59,6 +60,7 @@ const ButtonCss = styled.button`
 `;
 
 const HappyList = function ({ item, openModalHandler, isOpen, deleteList }) {
+
   return (
     <>
       <HappyListContainer item={item} onClick={openModalHandler}>

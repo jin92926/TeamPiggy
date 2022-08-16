@@ -1,9 +1,9 @@
 import styled from "styled-components";
+// import Wrapper from '../../Component/Wrapper'
 
-const LoginForm = function({onSubmit, onChange, email, password, newAccount, username}){
+const LoginForm = function({onSubmit, onChange, email, password, newAccount, username, toggleAccount}){
     return (
         <Wrapper>
-            
             {
             newAccount ?
             <>
@@ -14,7 +14,7 @@ const LoginForm = function({onSubmit, onChange, email, password, newAccount, use
                     <Input name="username" type="text" placeholder="username" required value={username} onChange={onChange} />
                     <Input type="submit" value="create Account" />
                 </Form>
-                <Button>back</Button>
+                <Button onClick={toggleAccount}>back</Button>
             </>
             :
             <>
