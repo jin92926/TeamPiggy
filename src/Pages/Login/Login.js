@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from '@firebase/auth'
 import styled from "styled-components";
 import { useNavigate } from "react-router";
@@ -16,7 +17,7 @@ const Login = () => {
     const [email, setEmail] = useState(""); //id
     const [password, setPassword] = useState(""); //pw
     const [username, setUsername] = useState(""); //username
-    const [error, setError] = useState("")
+    const [error, setError] = useState(" ")
     const [newAccount, setNewAccount] = useState(false);	// 새로운 유저인지 확인
     let navigate = useNavigate();
     
@@ -35,18 +36,20 @@ const Login = () => {
       event.preventDefault();
       try {
         let data;
+        setError(" ");
         if (newAccount) {
           data = await createUserWithEmailAndPassword(authService, email, password); // 계정 만들기
-          alert('새 계정 만들기 성공')
-          navigate('/main')
+          await updateProfile(authService.currentUser, {displayName: username}); //displayName 추가
+          // alert('새 계정 만들기 성공');
+          navigate('/main');
         } else {
           data = await signInWithEmailAndPassword(authService, email, password); // 로그인
-          alert('로그인 성공')
-          navigate('/main')
+          alert('로그인 성공');
+          navigate('/main');
         }
         console.log(data);
       } catch(error) {
-        alert(error.message);
+        console.log(error.message);
       }
     }
     
@@ -57,12 +60,12 @@ const Login = () => {
         const {target: {name}} = event;
         let provider;
         if (name === "google") {
-          provider = new GoogleAuthProvider()
-          navigate('/main')
+          provider = new GoogleAuthProvider();
+          navigate('/main');
         }
         else if(name === "github"){
-          provider = new GithubAuthProvider()
-          navigate('/main')
+          provider = new GithubAuthProvider();
+          navigate('/main');
         }
         const data = await signInWithPopup(authService, provider);
         console.log(data);

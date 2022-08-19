@@ -6,6 +6,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  where,
   deleteDoc,
 } from "firebase/firestore";
 import { dbService } from "../../firebase";
@@ -66,7 +67,7 @@ const ItemSection = styled.section`
   overflow-x: hidden;
 `;
 
-const Find = () => {
+const Find = ({userObj}) => {
   const [savedHappy, setSavedHappy] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedHappy, setSelectedHappy] = useState({});
@@ -88,7 +89,7 @@ const Find = () => {
   };
 
   useEffect(() => {
-    const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
+    const q = query(collection(dbService, "happy"), where("작성자", "==", userObj.displayName));
     onSnapshot(q, (snapshot) => {
       const happyArr = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -97,7 +98,7 @@ const Find = () => {
       setSavedHappy(happyArr);
     });
   }, []);
-  // console.log(savedHappy);
+  console.log(savedHappy);
   return (
     <Background>
       <DivContainer>

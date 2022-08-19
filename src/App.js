@@ -9,7 +9,6 @@ import Find from "./Pages/Find/Find";
 import Login from "./Pages/Login/Login";
 import Setting from "./Pages/Setting/Setting";
 
-
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -19,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  
   const [userObj, setUserObj] = useState(null);
   const [title, setTitle] = useState([
     ["행복", "저금통"],
@@ -33,10 +32,13 @@ function App() {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) =>
-      user ? (setIsLogin(true), setUserObj(user)) : setIsLogin(false)
+      setUserObj(user)
     );
     setInit(true);
   }, []);
+  const refreshUser = () =>{
+    setUserObj(authService.currentUser);
+  }
   return (
     <>
       <BrowserRouter>
@@ -45,13 +47,13 @@ function App() {
         init ? 
         <Routes>
           {
-            isLogin
+            Boolean(userObj)
             ?
             <>
             <Route path="/main" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
-            <Route path="/create" element={<Create />} />
-            <Route path="/draw" element={<Draw title={title} src={src} vanish={vanish} />} />
-            <Route path="/Find" element={<Find />} />
+            <Route path="/create" element={<Create userObj={userObj}/>} />
+            <Route path="/draw" element={<Draw userObj={userObj} title={title} src={src} vanish={vanish} />} />
+            <Route path="/Find" element={<Find userObj={userObj} />} />
             <Route path="/Setting" element={<Setting userObj={userObj}/>} />
             </>
             : <Route path="/" element={<Login />} />

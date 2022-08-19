@@ -12,7 +12,7 @@ const Setting = ({userObj}) => {
             <div className="profile">
                 <img src="/mainpig.png" />
                 <div>
-                  <span>{userObj.email}</span>
+                  <span>{userObj.displayName}</span>
                   <span>
                   <Logout />
                   </span>
