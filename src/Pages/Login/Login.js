@@ -14,6 +14,9 @@ import LoginForm from './LoginForm';
 import LoginBtn from './LoginBtn';
 import Modal from '../../Component/Modal';
 
+import { Routes, Route } from "react-router-dom";
+import Main from '../Main';
+
 const Login = (props) => {
     const [email, setEmail] = useState(""); //id
     const [password, setPassword] = useState(""); //pw
@@ -23,6 +26,8 @@ const Login = (props) => {
     const [showmodal, setShowmodal] = useState(true); //모달
     let navigate = useNavigate();
     
+    console.log(props.userObj)
+
     const onChange = (event) => {
       const {target: {name, value}} = event;
       if (name ==="email") {
@@ -43,11 +48,11 @@ const Login = (props) => {
           data = await createUserWithEmailAndPassword(authService, email, password); // 계정 만들기
           await updateProfile(authService.currentUser, {displayName: username}); //displayName 추가
           // alert('새 계정 만들기 성공');
-          navigate('/main');
+          // navigate('/');
         } else {
           data = await signInWithEmailAndPassword(authService, email, password); // 로그인
           alert('로그인 성공');
-          navigate('/main');
+          // navigate('/');
         }
         console.log(data);
       } catch(error) {
@@ -59,54 +64,66 @@ const Login = (props) => {
 
     //social login
     const OnSocialClick = async (event) => {
-        const {target: {name}} = event;
+    
+        const {currentTarget: {name}} = event;
         let provider;
         if (name === "google") {
           provider = new GoogleAuthProvider()
-          navigate('/main')
+          // navigate('/')
         }
         else if(name === "github"){
           provider = new GoogleAuthProvider();
-          navigate('/main');
+          // navigate('/');
         }
         const data = await signInWithPopup(authService, provider);
         console.log(data);
       }
-
+    
     useEffect(() => {
       let timer = setTimeout(() => {
         setShowmodal(false)
+        // navigate('/Login')
       },2000)
       return () => {
         clearTimeout(timer);
       }
     },[])
 
+    console.log(props)
+
     return (
       
+      props.userObj === null
+      ?
       <Wrapper>
         {
         showmodal === true
         ?
-        <Modal title={props.title[0]} src={props.src[0]} vanish={props.vanish}/>
+        <Modal title={props.title[0]} src={props.src[0]} vanish={props.vanish} />
         :
-      <Background>
-        <DivContainer>
-        <LoginForm
-          onSubmit={onSubmit} 
-          onChange={onChange}
-          email={email}
-          password={password}
-          username={username}
-          newAccount={newAccount}
-          toggleAccount={toggleAccount}
-        >
-        </LoginForm>
-        <LoginBtn OnSocialClick={OnSocialClick} newAccount={newAccount} toggleAccount={toggleAccount}></LoginBtn>
-        </DivContainer>
-      </Background>
-      }
+        <Background>
+          <DivContainer>
+          <LoginForm
+            onSubmit={onSubmit} 
+            onChange={onChange}
+            email={email}
+            password={password}
+            username={username}
+            newAccount={newAccount}
+            toggleAccount={toggleAccount}
+          >
+          </LoginForm>
+          <LoginBtn OnSocialClick={OnSocialClick} newAccount={newAccount} toggleAccount={toggleAccount}></LoginBtn>
+          </DivContainer>
+        </Background>
+        }
       </Wrapper>
+      :
+      <div>몰라</div>
+      // <Routes>
+      //   <Route path="/" element={<Main />} />
+      // </Routes>
+
   )
 }
 const Wrapper = styled.div`

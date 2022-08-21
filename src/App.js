@@ -1,7 +1,10 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { authService } from "./firebase";
+
 import Main from "./Pages/Main";
 import Create from "./Pages/Create/Create";
 import Draw from "./Pages/Draw/Draw";
@@ -16,6 +19,13 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 `;
 
+const DivContainer1 = styled.div`
+  /* background-color: red;
+  width: 1000px;
+  height: 1000px; */
+
+`
+
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
@@ -27,37 +37,46 @@ function App() {
   const [src, setSrc] = useState(["/folder.png", "/mainpig.png"]);
   const [vanish, setVanish] = useState(true);
 
-  console.log(authService.currentUser);
-
   useEffect(() => {
+
     authService.onAuthStateChanged((user) =>
-      setUserObj(user)
+    setUserObj(user)
     );
     setInit(true);
+
   }, []);
-  
+
   return (
     <>
       <BrowserRouter>
       <GlobalStyle />
       {
-        init ? 
-        <Routes>
-          {
-            Boolean(userObj)
-            ?
-            <>
-            <Route path="/main" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
+        userObj === null
+        ?
+          init === false 
+          ?
+          <div>기다려</div>
+          : 
+          <Routes>
+            <Route path="/" element={<Login userObj={userObj} title={title} src={src} vanish={vanish}/>} />
+            <Route path="/" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
             <Route path="/create" element={<Create userObj={userObj}/>} />
             <Route path="/draw" element={<Draw userObj={userObj} title={title} src={src} vanish={vanish} />} />
             <Route path="/Find" element={<Find userObj={userObj} />} />
             <Route path="/Setting" element={<Profile userObj={userObj}/>} />
-            </>
-            : <Route path="/" element={<Login userObj={userObj} title={title} src={src} vanish={vanish}/>} />
-          }
-        </Routes>
+          </Routes>
         :
-        "init.. "
+          init === true 
+          ?
+          <Routes>
+            <Route path="/" element={<Main userObj={userObj} title={title} src={src} vanish={vanish}/>} />
+            <Route path="/create" element={<Create userObj={userObj}/>} />
+            <Route path="/draw" element={<Draw userObj={userObj} title={title} src={src} vanish={vanish} />} />
+            <Route path="/Find" element={<Find userObj={userObj} />} />
+            <Route path="/Setting" element={<Profile userObj={userObj}/>} />
+          </Routes>
+          :
+          <div>실패</div>
         }
       </BrowserRouter>
     </>

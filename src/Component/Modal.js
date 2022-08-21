@@ -96,6 +96,7 @@ const ContentContainer = styled.div`
 `;
 
 const DivContainer1 = styled(DivContainer)`
+
   > .div2 {
     display: flex;
     flex-direction: column;

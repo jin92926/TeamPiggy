@@ -3,6 +3,7 @@ import { ReactComponent as GoogleIcon } from '../../googleLogo.svg'
 import { ReactComponent as GithubIcon } from '../../github.svg'
 
 const LoginBtn = ({OnSocialClick, newAccount, toggleAccount}) => {
+
     return(
         newAccount ?
         null
