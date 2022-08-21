@@ -8,13 +8,13 @@ const LoginBtn = ({OnSocialClick, newAccount, toggleAccount}) => {
         null
         :
         <SocialBtn>
-            <Button name="google" onClick={OnSocialClick}>
+            <Button name="google" color="#d2d2d2" onClick={OnSocialClick}>
                 <div>
                     <GoogleIcon width="16px" height="16px"/>
                 </div>
                 <span>Google 계정으로 로그인</span>
             </Button>
-            <Button name="github" onClick={OnSocialClick}>
+            <Button name="github" color="#222222" onClick={OnSocialClick}>
                 <div>
                     <GithubIcon width="16px" height="16px"/>
                 </div>
@@ -41,9 +41,10 @@ const Button = styled.button`
     cursor: pointer;
     outline: none;
     color: #fff;
-    background-color: skyblue;
+    background-color: ${(props) => props.color ? props.color : "skyblue"};
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
     > div{
         display: inline-block;
         background-color: white;

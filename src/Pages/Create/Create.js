@@ -23,11 +23,11 @@ const DivContainer = styled.div`
   justify-content: space-between;
 `;
 
-function Create() {
+function Create(props) {
   return (
     <Background>
       <DivContainer>
-        <Form />
+        <Form userObj={props.userObj}/>
         <Nav />
       </DivContainer>
     </Background>
