@@ -17,6 +17,7 @@ const Modal = (props) => {
   }, [])
 
   return(
+      <Wrapper>
       <Background>
         {
         close === true
@@ -42,33 +43,35 @@ const Modal = (props) => {
           :null
         }
       </Background>
+      </Wrapper>
     )
 }
+const Wrapper = styled.div`
+  background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
+`;
 
 const Background = styled.div`
-  width: 100vw;
   height: 100vh;
-  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  color : #FCF6F5;
 `;
 
 const DivContainer = styled.div`
   width: 414px;
   height: 736px;
-  background: linear-gradient(17.56deg, #F6E7FB 0%, #3B6BB7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeout 2s;
-  @keyframes fadeout {
+  background-color: white;
+  border-radius: 10px;
+  animation: fadein 5s;
+  @keyframes fadein {
     from {
-        opacity: 1;
+        opacity: 0;
     }
     to {
-        opacity: 0;
+        opacity: 1;
     }
   }
 `;

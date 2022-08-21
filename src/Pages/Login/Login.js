@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { authService } from '../../firebase'
 import { 
   createUserWithEmailAndPassword,
@@ -12,13 +12,15 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 import LoginForm from './LoginForm';
 import LoginBtn from './LoginBtn';
+import Modal from '../../Component/Modal';
 
-const Login = () => {
+const Login = (props) => {
     const [email, setEmail] = useState(""); //id
     const [password, setPassword] = useState(""); //pw
     const [username, setUsername] = useState(""); //username
     const [error, setError] = useState(" ")
     const [newAccount, setNewAccount] = useState(false);	// 새로운 유저인지 확인
+    const [showmodal, setShowmodal] = useState(true); //모달
     let navigate = useNavigate();
     
     const onChange = (event) => {
@@ -71,7 +73,23 @@ const Login = () => {
         console.log(data);
       }
 
+    useEffect(() => {
+      let timer = setTimeout(() => {
+        setShowmodal(false)
+      },2000)
+      return () => {
+        clearTimeout(timer);
+      }
+    },[])
+
     return (
+      
+      <Wrapper>
+        {
+        showmodal === true
+        ?
+        <Modal title={props.title[0]} src={props.src[0]} vanish={props.vanish}/>
+        :
       <Background>
         <DivContainer>
         <LoginForm
@@ -87,14 +105,18 @@ const Login = () => {
         <LoginBtn OnSocialClick={OnSocialClick} newAccount={newAccount} toggleAccount={toggleAccount}></LoginBtn>
         </DivContainer>
       </Background>
+      }
+      </Wrapper>
   )
 }
+const Wrapper = styled.div`
+  background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
+`;
 const Background = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #FFFF4D; */
 `;
 
 const DivContainer = styled.div`
@@ -104,8 +126,9 @@ const DivContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
+  background-color: white;
   border-radius: 10px;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export default Login;

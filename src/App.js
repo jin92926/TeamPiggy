@@ -7,7 +7,7 @@ import Create from "./Pages/Create/Create";
 import Draw from "./Pages/Draw/Draw";
 import Find from "./Pages/Find/Find";
 import Login from "./Pages/Login/Login";
-import Setting from "./Pages/Setting/Setting";
+import Profile from "./Pages/Profile/Profile";
 
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
@@ -18,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [init, setInit] = useState(false);
-  
   const [userObj, setUserObj] = useState(null);
   const [title, setTitle] = useState([
     ["행복", "저금통"],
@@ -36,9 +35,7 @@ function App() {
     );
     setInit(true);
   }, []);
-  const refreshUser = () =>{
-    setUserObj(authService.currentUser);
-  }
+  
   return (
     <>
       <BrowserRouter>
@@ -54,9 +51,9 @@ function App() {
             <Route path="/create" element={<Create userObj={userObj}/>} />
             <Route path="/draw" element={<Draw userObj={userObj} title={title} src={src} vanish={vanish} />} />
             <Route path="/Find" element={<Find userObj={userObj} />} />
-            <Route path="/Setting" element={<Setting userObj={userObj}/>} />
+            <Route path="/Setting" element={<Profile userObj={userObj}/>} />
             </>
-            : <Route path="/" element={<Login />} />
+            : <Route path="/" element={<Login userObj={userObj} title={title} src={src} vanish={vanish}/>} />
           }
         </Routes>
         :

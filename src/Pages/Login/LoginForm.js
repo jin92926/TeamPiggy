@@ -7,6 +7,7 @@ const LoginForm = function({onSubmit, onChange, email, password, newAccount, use
             {
             newAccount ?
             <>
+                {/* <img src="/piggybank.png" /> */}
                 <Title> Piggy 새 계정 만들기</Title>
                 <Form onSubmit={onSubmit}>
                     <Input name="email" type="email" placeholder="email" required value={email} onChange={onChange} />
@@ -18,6 +19,7 @@ const LoginForm = function({onSubmit, onChange, email, password, newAccount, use
             </>
             :
             <>
+                {/* <img src="/piggybank.png" /> */}
                 <Title>Piggy 로그인</Title>
                 <Form onSubmit={onSubmit}>
                     <Input name="email" type="email" placeholder="email" required value={email} onChange={onChange} />
@@ -43,6 +45,8 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     padding: 6px 12px;
+    /* border: 1px solid red; */
+    width: 90%;
 `;
 const Input = styled.input`
     padding: 10px;
