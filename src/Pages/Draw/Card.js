@@ -17,6 +17,7 @@ const Container = styled.div`
 const StyledSlider = styled(Slider)`
 
 	.slick-prev {
+    z-index: 1;
     left: 20px;
   }
   .slick-next {

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Nav from "../../Component/Nav";
-
 import {
   doc,
   collection,
   onSnapshot,
   query,
   orderBy,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 import { dbService } from "../../firebase";
-import HappyList from "./HappyList";
 import styled from "styled-components";
-import DetailModal from "../../Component/DetailModal";
+import NoHappy from "../../Component/NoHappy";
+import SelectedModal from "./SelectedModal";
+import HappyList from "./HappyList";
 
 
 const Background = styled.div`
@@ -22,7 +22,7 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color : #FCF6F5;
+  color: #fcf6f5;
 `;
 
 const DivContainer = styled.div`
@@ -32,32 +32,67 @@ const DivContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(180.45deg, #F6E7FB 1.69%, #3B6BB7 99.25%);
-
-
+  background: linear-gradient(180.45deg, #f6e7fb 1.69%, #3b6bb7 99.25%);
+  
   > .div3 {
     flex-grow: 1;
     display: flex;
     align-items: center;
   }
+`;
 
+const ListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+`;
+
+const ListBackground = styled.div`
+  width: 359px;
+  height: 580px;
+  background: #ffffff4d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin: 25px;
+`;
+
+const ItemSection = styled.section`
+  display: flex;
+  justify-content: center;
+  width: 310px;
+  height: 560px;
+  /* overflow: scroll;
+  overflow-x: hidden; */
 `;
 
 const Find = () => {
   const [savedHappy, setSavedHappy] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
-  const openModalHandler = (event) => {
+  const [selectedHappy, setSelectedHappy] = useState({});
+
+  const openModalHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const selecteHandler = (id) => {
+    const selectedArr = savedHappy.filter((item) => {
+      return item.id === id;
+    });
+    setSelectedHappy(...selectedArr);
   };
 
   const deleteList = async (id) => {
     const listDoc = doc(dbService, "happy", id);
     await deleteDoc(listDoc);
-  }
+  };
 
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
+    console.log(q)
     onSnapshot(q, (snapshot) => {
       const happyArr = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -66,18 +101,31 @@ const Find = () => {
       setSavedHappy(happyArr);
     });
   }, []);
-  // console.log(savedHappy);
+
   return (
     <Background>
       <DivContainer>
-        <div className="div2">
-        {savedHappy.map((item) => (
-          <HappyList key={item.id} item={item} isOpen={isOpen} openModalHandler={openModalHandler}/> //컴포넌트라 안읽힘
-        ))}
-        </div>
-        <div className="div3">
-          <DetailModal isOpen={isOpen} deleteList={deleteList}/>
-        </div>
+        {!isOpen && savedHappy.length > 0 && (
+          <ListContainer>
+            <ListBackground>
+              <ItemSection>
+                <HappyList
+                  savedHappy={savedHappy} 
+                  openModalHandler={openModalHandler} 
+                  deleteList={deleteList}
+                  selecteHandler={selecteHandler}
+                ></HappyList>
+              </ItemSection>
+            </ListBackground>
+          </ListContainer>
+        )}
+        {!isOpen && savedHappy.length < 1 && <NoHappy />}
+        <SelectedModal
+          savedHappy={savedHappy}
+          selectedHappy={selectedHappy}
+          isOpen={isOpen}
+          deleteList={deleteList}
+        />
         <Nav />
       </DivContainer>
     </Background>
