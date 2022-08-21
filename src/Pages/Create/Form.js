@@ -10,14 +10,14 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import CreatedHappy from "./CreatedHappy";
 
-function Form() {
+function Form(userObj) {
   const [title, setTitle] = useState("");
   const [weather, setWeather] = useState("");
   const [text, setText] = useState("");
   const [attachment, setAttachment] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [happyObj, setHappyObj] = useState({});
-
+  // console.log(userObj.userObj.displayName)
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";
@@ -35,6 +35,7 @@ function Form() {
     }
 
     const submitHappy = {
+      작성자: userObj.userObj.displayName,
       제목: title,
       날짜: new Date(),
       날씨: weather,
@@ -43,7 +44,7 @@ function Form() {
     };
 
     setHappyObj(submitHappy);
-    // console.log(happyObj);
+    console.log(happyObj);
 
     await addDoc(collection(dbService, "happy"), submitHappy);
     setTitle("");

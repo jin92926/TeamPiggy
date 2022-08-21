@@ -70,7 +70,7 @@ const SelectedHappyContent = styled.div`
   color: black;
 `;
 const CreatedHappy = ({ happyObj }) => {
-  // console.log(happyObj);
+  console.log(happyObj);
 
   return (
     <>

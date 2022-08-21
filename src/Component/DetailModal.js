@@ -96,6 +96,8 @@ const ButtonCss = styled.button`
 function DetailModal({ isOpen, deleteList }) {
   const [savedHappy, setSavedHappy] = useState([]);
 
+  console.log(isOpen);
+
   useEffect(() => {
     const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
     onSnapshot(q, (snapshot) => {

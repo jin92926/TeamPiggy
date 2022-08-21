@@ -7,8 +7,8 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
 `;
+
 const HappyListContainer = styled.div`
   background-color: #fff;
   margin: 20px;
@@ -82,17 +82,6 @@ function HappyList({savedHappy, openModalHandler, deleteList,selecteHandler}) {
             <DateDiv>
               <span>{el.날짜.toDate().toLocaleDateString().slice(0, 11)}</span>
             </DateDiv>
-            {/* <ButtonDiv>
-              <img src="/trash.png" alt="삭제하기" />
-              <ButtonCss
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteList(el.id);
-                }}
-              >
-                삭제하기
-              </ButtonCss>
-            </ButtonDiv> */}
           </DateNDelete>
         </HappyListContainer>
         </div>

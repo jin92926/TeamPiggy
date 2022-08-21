@@ -119,7 +119,7 @@ function SelectedModal({ isOpen, deleteList, selectedHappy, savedHappy }) {
                   <ButtonCss
                     onClick={() => {
                       deleteList(selectedHappy.id);
-                      navigate("/draw");
+                      navigate("/");
                     }}
                   >
                     삭제하기

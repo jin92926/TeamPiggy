@@ -6,6 +6,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  where,
   deleteDoc,
 } from "firebase/firestore";
 import { dbService } from "../../firebase";
@@ -13,7 +14,6 @@ import styled from "styled-components";
 import NoHappy from "../../Component/NoHappy";
 import SelectedModal from "./SelectedModal";
 import HappyList from "./HappyList";
-
 
 const Background = styled.div`
   width: 100vw;
@@ -69,7 +69,7 @@ const ItemSection = styled.section`
   overflow-x: hidden; */
 `;
 
-const Find = () => {
+const Find = ({userObj}) => {
   const [savedHappy, setSavedHappy] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedHappy, setSelectedHappy] = useState({});
@@ -91,8 +91,7 @@ const Find = () => {
   };
 
   useEffect(() => {
-    const q = query(collection(dbService, "happy"), orderBy("날짜", "desc"));
-    console.log(q)
+    const q = query(collection(dbService, "happy"), where("작성자", "==", userObj.displayName));
     onSnapshot(q, (snapshot) => {
       const happyArr = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -101,6 +100,7 @@ const Find = () => {
       setSavedHappy(happyArr);
     });
   }, []);
+  console.log(savedHappy);
 
   return (
     <Background>
@@ -126,6 +126,7 @@ const Find = () => {
           isOpen={isOpen}
           deleteList={deleteList}
         />
+        {/* <DetailModal isOpen={isOpen} deleteList={deleteList} /> */}
         <Nav />
       </DivContainer>
     </Background>

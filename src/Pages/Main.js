@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import Nav from '../Component/Nav'
-import Modal from '../Component/Modal';
 import styled from 'styled-components';
 
 const Background1 = styled.div`
@@ -42,37 +40,18 @@ const DivContainer1234 = styled.div`
   }
 `;
 
-
 function Main(props) {
-  const [showmodal, setShowmodal] = useState(true);
-
-
-  useEffect(() => {
-    let timer = setTimeout(() => {
-      setShowmodal(false)
-    },2000)
-    return () => {
-      clearTimeout(timer);
-    }
-  },[])
-
   return (
     <>
-      {
-        showmodal === true
-        ?
-        <Modal title={props.title[0]} src={props.src[0]} vanish={props.vanish}/>
-        :
-        <Background1>
-          <DivContainer123>
-            <DivContainer1234>
-              <img src={props.src[1]}/>
-              <p>서희님의 행복한 기억을 모아뒀어요</p>
-            </DivContainer1234>
-            <Nav/>
-          </DivContainer123>
-        </Background1>
-      }
+      <Background1>
+        <DivContainer123>
+          <DivContainer1234>
+            <img src={props.src[1]}/>
+            <p>{props.userObj.displayName}님의 행복한 기억을 모아뒀어요</p>
+          </DivContainer1234>
+          <Nav/>
+        </DivContainer123>
+      </Background1>
     </>
   )
 }
