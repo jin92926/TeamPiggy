@@ -91,7 +91,7 @@ const Find = ({userObj}) => {
   };
 
   useEffect(() => {
-    const q = query(collection(dbService, "happy"), where("작성자", "==", userObj.displayName));
+    const q = query(collection(dbService, "happy"), where("작성자", "==", userObj.uid));
     onSnapshot(q, (snapshot) => {
       const happyArr = snapshot.docs.map((doc) => ({
         id: doc.id,

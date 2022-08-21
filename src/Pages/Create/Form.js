@@ -35,7 +35,7 @@ function Form(userObj) {
     }
 
     const submitHappy = {
-      작성자: userObj.userObj.displayName,
+      작성자: userObj.userObj.uid,
       제목: title,
       날짜: new Date(),
       날씨: weather,

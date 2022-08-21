@@ -72,7 +72,7 @@ const Login = (props) => {
           // navigate('/')
         }
         else if(name === "github"){
-          provider = new GoogleAuthProvider();
+          provider = new GithubAuthProvider();
           // navigate('/');
         }
         const data = await signInWithPopup(authService, provider);
